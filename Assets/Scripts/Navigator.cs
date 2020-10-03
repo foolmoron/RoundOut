@@ -30,7 +30,10 @@ public class Navigator : MonoBehaviour {
 	void FixedUpdate() {
 		// stop mouse
 		{
-			if (!Input.GetMouseButton(0)) {
+			if (Input.GetMouseButton(0)) {
+				GeneratingLine = true;
+				Scroller.Inst.Scrolling = true;
+			} else {
 				GeneratingLine = false;
 				Scroller.Inst.Scrolling = false;
 			}
@@ -47,12 +50,19 @@ public class Navigator : MonoBehaviour {
 		}
 		// add to trail
 		{
+			var roundingFactor = 5f;
+			var roundedPosition = new Vector2(
+				Mathf.Round(roundingFactor * rb.position.x) / roundingFactor,
+				Mathf.Round(roundingFactor * rb.position.y) / roundingFactor
+			);
 			if (GeneratingLine) {
-				var dist = (line[line.Count - 1] - rb.position.to3()).magnitude;
-				line.Add(rb.position);
-				totalDistance += dist;
+				var dist = (line[line.Count - 1] - roundedPosition.to3()).magnitude;
+				if (dist > 0.001f) { 
+					line.Add(roundedPosition);
+					totalDistance += dist;
+				}
 			} else {
-				line[line.Count - 1] = rb.position;
+				line[line.Count - 1] = roundedPosition;
             }
 		}
         // update decay rate based on total distance
@@ -86,11 +96,5 @@ public class Navigator : MonoBehaviour {
 			LineRenderer.SetPositions(line.ToArray());
         }
 	}
-
-    private void OnMouseDown() {
-		GeneratingLine = true;
-		Scroller.Inst.Scrolling = true;
-	}
-
 
 }
