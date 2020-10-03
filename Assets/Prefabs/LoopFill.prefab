@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -4786442723984462282}
   - component: {fileID: 1919435422007432728}
   - component: {fileID: 6388073850970212362}
+  - component: {fileID: 6672655752311214078}
   m_Layer: 6
   m_Name: LoopFill
   m_TagString: Untagged
@@ -151,15 +152,45 @@ MonoBehaviour:
   m_SpriteShape: {fileID: 11400000, guid: c33bc7bfd5e7b82468b3677972c1ac54, type: 2}
   m_FillPixelPerUnit: 256
   m_StretchTiling: 1
-  m_SplineDetail: 16
-  m_AdaptiveUV: 1
+  m_SplineDetail: 4
+  m_AdaptiveUV: 0
   m_StretchUV: 0
   m_WorldSpaceUV: 0
   m_CornerAngleThreshold: 41.2
   m_ColliderDetail: 16
-  m_ColliderOffset: 0.5
-  m_UpdateCollider: 1
-  m_OptimizeCollider: 1
+  m_ColliderOffset: 0
+  m_UpdateCollider: 0
+  m_OptimizeCollider: 0
   m_OptimizeGeometry: 1
-  m_EnableTangents: 1
+  m_EnableTangents: 0
   m_GeometryCached: 0
+--- !u!60 &6672655752311214078
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474628069354255711}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.06415975, y: 2.4348586}
+      - {x: -1.8379521, y: 1.0528934}
+      - {x: -1.1114099, y: -1.1831734}
+      - {x: 1.2397298, y: -1.1831732}
+      - {x: 1.9662715, y: 1.0528936}

@@ -49,7 +49,7 @@ public class Circler : Manager<Circler> {
         loopFillPool = LoopFillPrefab.GetObjectPool(40);
     }
 
-    void Update() {
+    void FixedUpdate() {
 		var line = Nav.Line;
         // detect intersections
         {
