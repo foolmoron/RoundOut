@@ -435,6 +435,7 @@ MonoBehaviour:
   SpeedToMouse: 38.5
   LineRenderer: {fileID: 1112766739}
   TrailDecayTime: 1.22
+  OffDecayTime: 23
 --- !u!50 &738602545
 Rigidbody2D:
   serializedVersion: 4

@@ -18,7 +18,8 @@ public class Navigator : MonoBehaviour {
 
 	[Range(0.1f, 3f)]
 	public float TrailDecayTime = 1f;
-	float decayRate;
+	[Range(1f, 100f)]
+	public float OffDecayTime = 25f;
 
 	Rigidbody2D rb;
 
@@ -57,24 +58,18 @@ public class Navigator : MonoBehaviour {
 			);
 			if (GeneratingLine) {
 				var dist = (line[line.Count - 1] - roundedPosition.to3()).magnitude;
-				if (dist > 0.001f) { 
+				if (dist > 0.001f) {
 					line.Add(roundedPosition);
 					totalDistance += dist;
 				}
 			} else {
 				line[line.Count - 1] = roundedPosition;
-            }
-		}
-        // update decay rate based on total distance
-		// and freeze it when you stop generating line
-        {
-			if (GeneratingLine) {
-				decayRate = totalDistance / TrailDecayTime;
-            }
+			}
 		}
 		// decay from trail
 		{
 			if (line.Count >= 2) {
+				var decayRate = Mathf.Max(totalDistance / TrailDecayTime, GeneratingLine ? 0f : OffDecayTime);
 				var decayAmount = decayRate * Time.deltaTime;
 				while (line.Count >= 2 && decayAmount > 0) {
 					var nextDistance = (line[1] - line[0]).magnitude;
