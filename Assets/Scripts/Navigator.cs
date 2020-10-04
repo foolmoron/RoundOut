@@ -23,11 +23,15 @@ public class Navigator : Manager<Navigator> {
 
 	SpriteRenderer anim;
 	Rigidbody2D rb;
+	RoundMover rm;
+	ParticleSystem thrustParticles;
 	float stunTime;
 
 	void Awake() {
 		anim = GetComponent<SpriteRenderer>();
 		rb = GetComponent<Rigidbody2D>();
+		rm = GetComponent<RoundMover>();
+		thrustParticles = GetComponentInChildren<ParticleSystem>();
 		Line.Add(rb.position);
 	}
 
@@ -35,6 +39,7 @@ public class Navigator : Manager<Navigator> {
         // dull if stun
         {
 			anim.color = anim.color.withAlpha(stunTime <= 0 ? 1.0f : 0.4f);
+			thrustParticles.enableEmission(stunTime <= 0);
 		}
         // decay stun
         {
@@ -45,6 +50,7 @@ public class Navigator : Manager<Navigator> {
 			if (Input.GetMouseButton(0) && stunTime <= 0) {
 				GeneratingLine = true;
 				Scroller.Inst.Scrolling = true;
+				rm.enabled = false;
 			} else {
 				GeneratingLine = false;
 			}

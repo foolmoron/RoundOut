@@ -89,18 +89,21 @@ public class Scorer : Manager<Scorer> {
 	}
 
     public void OnStarGet(float score, Vector2 position) {
+        // increment multiplier
+        var multiplier = ComboMultiplier;
+        ComboMultiplier = NextFibbonacci();
+
         // add to score
         comboTime = BaseComboTime - ComboMinus * comboLevel;
-        var totalScore = score * ComboMultiplier;
-        ComboMultiplier = NextFibbonacci();
+        var totalScore = score * multiplier;
         Score += totalScore;
         BestStar = Mathf.Max(BestStar, totalScore);
 
         // capture text
         var text = Instantiate(CaptureTextPrefab, position, Quaternion.identity);
-        var scale = 0.107825f * ComboMultiplier + 0.699675f;
+        var scale = 0.107825f * multiplier + 0.699675f;
         text.transform.localScale = Vector2.one * scale;
-        StartCoroutine(FlashCaptureText(text, (int)score, ComboMultiplier, (int)totalScore));
+        StartCoroutine(FlashCaptureText(text, (int)score, multiplier, (int)totalScore));
     }
 
     int a = 1, b = 1;
