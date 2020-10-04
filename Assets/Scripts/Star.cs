@@ -13,6 +13,8 @@ public class Star : MonoBehaviour {
 
 	bool triggered;
 	int triggers;
+
+	public AudioClip StarGetSound;
 	
 	void Awake() {
 		GetComponentsInChildren<Rotating>().ForEach(r => r.DegreesPerSecond.z = Mathf.Lerp(40, 80, Random.value) * (Random.value < 0.5f ? 1 : -1));
@@ -34,7 +36,8 @@ public class Star : MonoBehaviour {
 			if (triggered && triggers == 0) {
 				Scorer.Inst.OnStarGet(score, transform.position);
 				Destroy(gameObject);
-            }
+				StarGetSound.PlayWithPitchRange(0.7f, 1.25f);
+			}
         }
 	}
 

@@ -14,7 +14,17 @@ public class Scroller : Manager<Scroller> {
 
 	public GameObject[] EnableOnScroll;
 
+	[Range(0, 5)]
+	public float DrumIntervalBase = 1;
+	public float DrumSpeedFactor;
+
+	public AudioClip DrumSound;
+	float drumTime;
+
+	AudioSource a;
+
 	void Awake() {
+		a = GetComponent<AudioSource>();
 	}
 
 	void Update() {
@@ -29,5 +39,20 @@ public class Scroller : Manager<Scroller> {
 		}
 		
 		wasScrolling = Scrolling;
+
+		a.volume = Scrolling ? 0 : 1;
+
+		// drum
+		{
+			if (Scrolling) {
+				drumTime -= Time.deltaTime * (1 + currentVelocity * DrumSpeedFactor);
+				if (drumTime <= 0) {
+					drumTime = DrumIntervalBase;
+					DrumSound.Play();
+				}
+			} else {
+				drumTime = 0;
+			}
+		}
 	}
 }

@@ -29,4 +29,8 @@ public static class AudioClipExtensions {
 
         clips.Random().Play(pos, volume, pitch, pan);
     }
+
+    public static void PlayWithPitchRange(this AudioClip audioClip, float pitchRangeX, float pitchRangeY) {
+        Play(audioClip, null, 1, Mathf.Lerp(pitchRangeX, pitchRangeY, Random.value), 0);
+    }
 }

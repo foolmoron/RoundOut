@@ -28,6 +28,15 @@ public class Navigator : Manager<Navigator> {
 	RoundMover rm;
 	ParticleSystem thrustParticles;
 	float stunTime;
+	float metronomeTime;
+
+	[Range(0, 5)]
+	public float MetronomeIntervalBase = 1;
+	public float MetronomeDistanceFactor;
+
+	public AudioClip MetronomeSound;
+	public AudioClip HurtSound;
+
 
 	void Awake() {
 		anim = GetComponent<SpriteRenderer>();
@@ -118,7 +127,19 @@ public class Navigator : Manager<Navigator> {
 				stunTime = float.PositiveInfinity;
 				Scorer.Inst.GameOver();
             }
-        }
+		}
+		// metronome
+		{
+			if (GeneratingLine) {
+				metronomeTime -= Time.deltaTime * (1 + totalDistance * MetronomeDistanceFactor);
+				if (metronomeTime <= 0) {
+					metronomeTime = MetronomeIntervalBase;
+					MetronomeSound.Play();
+                }
+			} else {
+				metronomeTime = 0;
+            }			
+		}
 	}
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -131,6 +152,8 @@ public class Navigator : Manager<Navigator> {
 			rb.AddForce(hit.normal * stunBlock.PushForce, ForceMode2D.Impulse);
 			// particles
 			var particles = Instantiate(HitParticlesPrefab, hit.point, Quaternion.Euler(0, 0, hit.normal.angleDeg() - 30));
+			// sound
+			HurtSound.PlayWithPitchRange(0.8f, 1.2f);
 		}
     }
 

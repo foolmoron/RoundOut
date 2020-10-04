@@ -39,6 +39,8 @@ public class Circler : Manager<Circler> {
     public GameObject LoopFillPrefab;
     ObjectPool loopFillPool;
 
+    public AudioClip LoopMakeSound;
+
     const int MIN_EDGES_PER_LOOP = 5;
     readonly ListDict<LoopKey, (int start, int end)> detectedLoops = new ListDict<LoopKey, (int start, int end)>(10);
     readonly ListDict<LoopKey, LoopFill> loops = new ListDict<LoopKey, LoopFill>(10);
@@ -107,6 +109,7 @@ public class Circler : Manager<Circler> {
                         detectedLoops.Values[i].start, detectedLoops.Values[i].end
                     );
                     loops.Add(detectedLoops.Keys[i], loopFill);
+                    LoopMakeSound.PlayWithPitchRange(0.7f, 1.25f);
                 }
             }
         }

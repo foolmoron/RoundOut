@@ -164,6 +164,7 @@ MonoBehaviour:
   BaseScore: 200
   ScorePerSecond: 500
   ScorePerSecondBuffer: 0.15
+  StarGetSound: {fileID: 8300000, guid: 367116cb704933a4bb070649f823805b, type: 3}
 --- !u!58 &7061379701974184160
 CircleCollider2D:
   m_ObjectHideFlags: 0
