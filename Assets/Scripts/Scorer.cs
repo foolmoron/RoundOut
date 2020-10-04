@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Scorer : Manager<Scorer> {
 
     public float Score;
     public float TimeAlive;
+    public float BestStar;
 
     public int ComboMultiplier = 1;
     int comboLevel = 0;
@@ -17,6 +19,21 @@ public class Scorer : Manager<Scorer> {
 
     public SpriteRenderer Grid;
 
+    public TextMeshPro TextTime;
+    public TextMeshPro TextScore;
+    public TextMeshPro TextBestTime;
+    public TextMeshPro TextBestScore;
+    public TextMeshPro TextBestStar;
+
+    public TextMeshPro TextEndTime;
+    public TextMeshPro TextEndScore;
+    public TextMeshPro TextEndStar;
+    public TextMeshPro TextEndBestTime;
+    public TextMeshPro TextEndBestScore;
+    public TextMeshPro TextEndBestStar;
+
+    public GameObject[] EndTexts;
+
     bool canRestart;
 
     void Awake() {
@@ -26,12 +43,19 @@ public class Scorer : Manager<Scorer> {
             Grid.transform.localScale.y * (Random.value < 0.5f ? 1 : -1),
             1
         );
+        TextBestTime.text = PlayerPrefs.GetFloat("MaxTime").ToString("0.00s");
+        TextBestScore.text = PlayerPrefs.GetFloat("MaxScore").ToString("0");
+        TextBestStar.text = PlayerPrefs.GetFloat("MaxStar").ToString("0");
     }
 
     void Update() {
+        // restart
         if (canRestart && Input.GetMouseButtonDown(0)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        // tests
+        TextTime.text = TimeAlive.ToString("0.00s");
+        TextScore.text = Score.ToString("0");
     }
 
     void FixedUpdate() {
@@ -57,7 +81,7 @@ public class Scorer : Manager<Scorer> {
         ComboMultiplier = NextFibbonacci();
         var totalScore = score * ComboMultiplier;
         Score += totalScore;
-        PlayerPrefs.SetFloat("MaxStar", Mathf.Max(PlayerPrefs.GetFloat("MaxStar"), totalScore));
+        BestStar = Mathf.Max(BestStar, totalScore);
     }
 
     int a = 0, b = 1;
@@ -78,12 +102,8 @@ public class Scorer : Manager<Scorer> {
     public void GameOver() {
         PlayerPrefs.SetFloat("MaxScore", Mathf.Max(PlayerPrefs.GetFloat("MaxScore"), Score));
         PlayerPrefs.SetFloat("MaxTime", Mathf.Max(PlayerPrefs.GetFloat("MaxTime"), TimeAlive));
+        PlayerPrefs.SetFloat("MaxStar", Mathf.Max(PlayerPrefs.GetFloat("MaxStar"), BestStar));
         Scroller.Inst.Scrolling = false;
-
-        Debug.Log($"SCORE: {Score} BEST: {PlayerPrefs.GetFloat("MaxScore")}");
-        Debug.Log($"TIME: {TimeAlive} BEST: {PlayerPrefs.GetFloat("MaxTime")}");
-        Debug.Log($"BEST STAR: {PlayerPrefs.GetFloat("MaxStar")}");
-
         StartCoroutine(DoGameOverStuff());
     }
 
@@ -107,6 +127,20 @@ public class Scorer : Manager<Scorer> {
             yield return null;
         }
         Grid.color = Grid.color.withAlpha(originalA);
+        yield return new WaitForSeconds(Mathf.Lerp(0.8f, 1.5f, Random.value));
+
+
+        TextEndTime.text = Score.ToString("0.00s");
+        TextEndScore.text = Score.ToString("0");
+        TextEndStar.text = BestStar.ToString("0");
+        TextEndBestTime.text = PlayerPrefs.GetFloat("MaxTime").ToString("0.00s");
+        TextEndBestScore.text = PlayerPrefs.GetFloat("MaxScore").ToString("0");
+        TextEndBestStar.text = PlayerPrefs.GetFloat("MaxStar").ToString("0");
+        foreach (var t in EndTexts) {
+            t.gameObject.SetActive(true);
+            yield return new WaitForSeconds(Mathf.Lerp(0.1f, 0.6f, Random.value));
+        }
+
         canRestart = true;
     }
 }
