@@ -157,7 +157,10 @@ public class Scorer : Manager<Scorer> {
         Destroy(captureText);
     }
 
+    bool gameOver;
     public void GameOver() {
+        if (gameOver) return;
+        gameOver = true;
         PlayerPrefs.SetFloat("MaxScore", Mathf.Max(PlayerPrefs.GetFloat("MaxScore"), Score));
         PlayerPrefs.SetFloat("MaxTime", Mathf.Max(PlayerPrefs.GetFloat("MaxTime"), TimeAlive));
         PlayerPrefs.SetFloat("MaxStar", Mathf.Max(PlayerPrefs.GetFloat("MaxStar"), BestStar));
@@ -186,6 +189,7 @@ public class Scorer : Manager<Scorer> {
         }
         Grid.color = Grid.color.withAlpha(originalA);
         yield return new WaitForSeconds(Mathf.Lerp(0.8f, 1.5f, Random.value));
+        Grid.color = Grid.color.withAlpha(originalA);
 
 
         TextEndTime.text = TimeAlive.ToString("0.00s");

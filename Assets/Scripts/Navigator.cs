@@ -37,6 +37,11 @@ public class Navigator : Manager<Navigator> {
 	public AudioClip MetronomeSound;
 	public AudioClip HurtSound;
 
+    [Range(0, 10)]
+    public float OutDeathTime = 2f;
+    public float OutZone;
+    float outTime;
+
 
 	void Awake() {
 		anim = GetComponent<SpriteRenderer>();
@@ -47,6 +52,20 @@ public class Navigator : Manager<Navigator> {
 	}
 
 	void FixedUpdate() {
+        // out
+	    {
+	        if (Mathf.Abs(transform.position.x - Camera.main.transform.position.x) >= OutZone) {
+	            anim.color = Color.red;
+	            outTime += Time.deltaTime;
+	            if (outTime >= OutDeathTime) {
+                    Scorer.Inst.GameOver();
+	                stunTime = float.PositiveInfinity;
+	            }
+	        } else {
+	            outTime = 0;
+	            anim.color = Color.white;
+	        }
+	    }
         // dull if stun
         {
 			anim.color = anim.color.withAlpha(stunTime <= 0 ? 1.0f : 0.4f);

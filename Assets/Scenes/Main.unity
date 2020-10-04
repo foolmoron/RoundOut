@@ -2036,6 +2036,8 @@ MonoBehaviour:
   MetronomeDistanceFactor: 0.58
   MetronomeSound: {fileID: 8300000, guid: 87f81b5b862d6954481cab48ff9e4e8a, type: 3}
   HurtSound: {fileID: 8300000, guid: 315927bd53c8520459a49f2a22683e0d, type: 3}
+  OutDeathTime: 2
+  OutZone: 2.4
 --- !u!50 &738602545
 Rigidbody2D:
   serializedVersion: 4
@@ -5469,6 +5471,8 @@ MonoBehaviour:
   - {fileID: 1801928833}
   EasyPatterns:
   - {fileID: 8475754164982451801, guid: 509e0907378e31743af56f1c51bf6965, type: 3}
+  - {fileID: 8475754164982451801, guid: f8024405127d53a49b8738f543ead1d5, type: 3}
+  - {fileID: 8475754164982451801, guid: 788487930a634d440ac91f8589a93d5f, type: 3}
   EasyChanceOverTime:
     serializedVersion: 2
     m_Curve:
@@ -5522,6 +5526,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   MediumPatterns:
   - {fileID: 8475754164982451801, guid: d096f1d3a9801214c8f9617235262bc3, type: 3}
+  - {fileID: 8475754164982451801, guid: 26d70f89744e73741bfc401987d6e4ee, type: 3}
+  - {fileID: 8475754164982451801, guid: cf701e6cd8b03d94c8a11a3b7143daa0, type: 3}
+  - {fileID: 8475754164982451801, guid: c96076ffce7ce4d43af0d045384b5870, type: 3}
+  - {fileID: 8475754164982451801, guid: 5a8931af707833e46ac8681303b4e1bc, type: 3}
+  - {fileID: 8475754164982451801, guid: ad0ede7ce9c2df34281e4f4b82c2dc08, type: 3}
   MediumChanceOverTime:
     serializedVersion: 2
     m_Curve:
@@ -5566,6 +5575,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   HardPatterns:
   - {fileID: 8475754164982451801, guid: cde33f4963fe36c46852c0710d161b29, type: 3}
+  - {fileID: 8475754164982451801, guid: b86f0ec0e4e1e904897dfd2a6c658fd5, type: 3}
+  - {fileID: 8475754164982451801, guid: 554b970793b5d8e45b940c5a573bc5fb, type: 3}
+  - {fileID: 8475754164982451801, guid: 925e6011d50791649a1c92ceab55f325, type: 3}
+  - {fileID: 8475754164982451801, guid: c72684437e45a9642bc9f0988623c29a, type: 3}
+  - {fileID: 8475754164982451801, guid: cd5ec488954169c4d8043ae274e7b883, type: 3}
   HardChanceOverTime:
     serializedVersion: 2
     m_Curve:
