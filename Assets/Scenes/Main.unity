@@ -1421,6 +1421,7 @@ MonoBehaviour:
   BaseComboTime: 0.7
   ComboMinus: 0.12
   Grid: {fileID: 857845936}
+  CaptureTextPrefab: {fileID: 6649962115397123701, guid: 9a0aecd308288d148820ee595052cfcc, type: 3}
   TextTime: {fileID: 1116291797}
   TextScore: {fileID: 1789615523}
   TextBestTime: {fileID: 409554338}

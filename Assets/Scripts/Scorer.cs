@@ -19,6 +19,8 @@ public class Scorer : Manager<Scorer> {
 
     public SpriteRenderer Grid;
 
+    public GameObject CaptureTextPrefab;
+
     public TextMeshPro TextTime;
     public TextMeshPro TextScore;
     public TextMeshPro TextBestTime;
@@ -61,11 +63,10 @@ public class Scorer : Manager<Scorer> {
     void FixedUpdate() {
         // decay combo time
         {
-            if (comboTime > 0) {
-                comboTime -= Time.deltaTime;
-                if (comboTime <= 0) {
-                    ComboMultiplier = ResetFibbonnacci();
-                }
+            comboTime -= Time.deltaTime;
+            if (comboTime <= 0) {
+                comboTime = 0;
+                ComboMultiplier = ResetFibbonnacci();
             }
         }
         // track time
@@ -76,12 +77,19 @@ public class Scorer : Manager<Scorer> {
         }
 	}
 
-    public void OnStarGet(float score) {
+    public void OnStarGet(float score, Vector2 position) {
+        // add to score
         comboTime = BaseComboTime - ComboMinus * comboLevel;
         ComboMultiplier = NextFibbonacci();
         var totalScore = score * ComboMultiplier;
         Score += totalScore;
         BestStar = Mathf.Max(BestStar, totalScore);
+
+        // capture text
+        var text = Instantiate(CaptureTextPrefab, position, Quaternion.identity);
+        var scale = 0.107825f * ComboMultiplier + 0.699675f;
+        text.transform.localScale = Vector2.one * scale;
+        StartCoroutine(FlashCaptureText(text, (int)score, ComboMultiplier, (int)totalScore));
     }
 
     int a = 0, b = 1;
@@ -97,6 +105,26 @@ public class Scorer : Manager<Scorer> {
         a = 0;
         b = 1;
         return a + b;
+    }
+
+    IEnumerator FlashCaptureText(GameObject captureText, int initial, int multiplier, int score) {
+        var mult = captureText.transform.Find("Mult").GetComponent<TextMeshPro>();
+        mult.text = $"{initial} x {multiplier}";
+        var total = captureText.transform.Find("Total").GetComponent<TextMeshPro>();
+        total.text = $"{score}";
+
+        captureText.SetActive(true);
+        yield return new WaitForSeconds(Mathf.Lerp(0.45f, 0.65f, Random.value));
+        captureText.SetActive(false);
+        yield return new WaitForSeconds(Mathf.Lerp(0.035f, 0.06f, Random.value));
+        captureText.SetActive(true);
+        yield return new WaitForSeconds(Mathf.Lerp(0.1f, 0.3f, Random.value));
+        captureText.SetActive(false);
+        yield return new WaitForSeconds(Mathf.Lerp(0.035f, 0.06f, Random.value));
+        captureText.SetActive(true);
+        yield return new WaitForSeconds(Mathf.Lerp(0.035f, 0.06f, Random.value));
+        captureText.SetActive(false);
+        Destroy(captureText);
     }
 
     public void GameOver() {
@@ -130,7 +158,7 @@ public class Scorer : Manager<Scorer> {
         yield return new WaitForSeconds(Mathf.Lerp(0.8f, 1.5f, Random.value));
 
 
-        TextEndTime.text = Score.ToString("0.00s");
+        TextEndTime.text = TimeAlive.ToString("0.00s");
         TextEndScore.text = Score.ToString("0");
         TextEndStar.text = BestStar.ToString("0");
         TextEndBestTime.text = PlayerPrefs.GetFloat("MaxTime").ToString("0.00s");

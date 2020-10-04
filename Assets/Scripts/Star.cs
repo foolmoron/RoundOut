@@ -32,7 +32,7 @@ public class Star : MonoBehaviour {
         // die and give score
         {
 			if (triggered && triggers == 0) {
-				Scorer.Inst.OnStarGet(score);
+				Scorer.Inst.OnStarGet(score, transform.position);
 				Destroy(gameObject);
             }
         }

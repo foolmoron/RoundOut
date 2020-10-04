@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseScore: 200
   ScorePerSecond: 500
-  ScorePerSecondBuffer: 0.2
+  ScorePerSecondBuffer: 0.15
 --- !u!58 &7061379701974184160
 CircleCollider2D:
   m_ObjectHideFlags: 0
