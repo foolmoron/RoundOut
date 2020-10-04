@@ -12,31 +12,40 @@ public class Navigator : MonoBehaviour {
 
 	public LineRenderer LineRenderer;
 
-	readonly List<Vector3> line = new List<Vector3>(100);
-    public List<Vector3> Line => line;
-	float totalDistance;
+    public List<Vector3> Line { get; } = new List<Vector3>(100);
+    float totalDistance;
 
 	[Range(0.1f, 3f)]
 	public float TrailDecayTime = 1f;
 	[Range(1f, 100f)]
 	public float OffDecayTime = 25f;
 
+	SpriteRenderer anim;
 	Rigidbody2D rb;
+	float stunTime;
 
 	void Awake() {
+		anim = GetComponent<SpriteRenderer>();
 		rb = GetComponent<Rigidbody2D>();
-		line.Add(rb.position);
+		Line.Add(rb.position);
 	}
 
 	void FixedUpdate() {
+        // dull if stun
+        {
+			anim.color = anim.color.withAlpha(stunTime <= 0 ? 1.0f : 0.4f);
+		}
+        // decay stun
+        {
+			stunTime -= Time.deltaTime;
+        }
 		// stop mouse
 		{
-			if (Input.GetMouseButton(0)) {
+			if (Input.GetMouseButton(0) && stunTime <= 0) {
 				GeneratingLine = true;
 				Scroller.Inst.Scrolling = true;
 			} else {
 				GeneratingLine = false;
-				Scroller.Inst.Scrolling = false;
 			}
 		}
 		// chase mouse
@@ -45,7 +54,7 @@ public class Navigator : MonoBehaviour {
 				var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition).to2();
 				var vecToMouse = mousePos - rb.position;
 				rb.velocity = vecToMouse.normalized * Mathf.Min(SpeedToMouse, vecToMouse.magnitude / Time.deltaTime);
-			} else {
+			} else if (stunTime <= 0) {
 				rb.velocity = Vector2.zero;
 			}
 		}
@@ -57,28 +66,28 @@ public class Navigator : MonoBehaviour {
 				Mathf.Round(roundingFactor * rb.position.y) / roundingFactor
 			);
 			if (GeneratingLine) {
-				var dist = (line[line.Count - 1] - roundedPosition.to3()).magnitude;
+				var dist = (Line[Line.Count - 1] - roundedPosition.to3()).magnitude;
 				if (dist > 0.001f) {
-					line.Add(roundedPosition);
+					Line.Add(roundedPosition);
 					totalDistance += dist;
 				}
 			} else {
-				line[line.Count - 1] = roundedPosition;
+				Line[Line.Count - 1] = roundedPosition;
 			}
 		}
 		// decay from trail
 		{
-			if (line.Count >= 2) {
+			if (Line.Count >= 2) {
 				var decayRate = Mathf.Max(totalDistance / TrailDecayTime, GeneratingLine ? 0f : OffDecayTime);
 				var decayAmount = decayRate * Time.deltaTime;
-				while (line.Count >= 2 && decayAmount > 0) {
-					var nextDistance = (line[1] - line[0]).magnitude;
+				while (Line.Count >= 2 && decayAmount > 0) {
+					var nextDistance = (Line[1] - Line[0]).magnitude;
 					if (nextDistance <= decayAmount) {
-						line.RemoveAt(0);
+						Line.RemoveAt(0);
 						totalDistance -= nextDistance;
 						decayAmount -= nextDistance;
                     } else {
-						line[0] = Vector2.MoveTowards(line[0], line[1], decayAmount);
+						Line[0] = Vector2.MoveTowards(Line[0], Line[1], decayAmount);
 						totalDistance -= decayAmount;
 						decayAmount = 0;
                     }
@@ -87,9 +96,19 @@ public class Navigator : MonoBehaviour {
 		}
         // set line
         {
-			LineRenderer.positionCount = line.Count;
-			LineRenderer.SetPositions(line.ToArray());
+			LineRenderer.positionCount = Line.Count;
+			LineRenderer.SetPositions(Line.ToArray());
         }
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+		var stunBlock = collision.collider.GetComponent<StunBlock>();
+		if (stunBlock) {
+			GeneratingLine = false;
+			stunTime = stunBlock.StunTime;
+			rb.velocity = Vector2.zero;
+			rb.AddForce(collision.GetContact(0).normal * stunBlock.PushForce, ForceMode2D.Impulse);
+		}
+    }
 
 }

@@ -15,13 +15,10 @@ public class Star : MonoBehaviour {
 	int triggers;
 	
 	void Awake() {
-	}
+		GetComponentsInChildren<Rotating>().ForEach(r => r.DegreesPerSecond.z = Mathf.Lerp(40, 80, Random.value) * (Random.value < 0.5f ? 1 : -1));
+		GetComponentsInChildren<AlphaPulser>().ForEach(a => a.PulseOffset = Mathf.Lerp(0, 1, Random.value));
 
-    void OnEnable() {
 		score = BaseScore;
-		scorePerSecondBuffer = 0;
-		triggered = false;
-		triggers = 0;
 	}
 
     void FixedUpdate() {
@@ -36,7 +33,7 @@ public class Star : MonoBehaviour {
         {
 			if (triggered && triggers == 0) {
 				Scorer.Inst.OnStarGet(score);
-				gameObject.Release();
+				Destroy(gameObject);
             }
         }
 	}

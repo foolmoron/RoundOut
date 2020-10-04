@@ -50,7 +50,7 @@ public class ObjectPool : MonoBehaviour {
     // all objects that came through this ObjectPool
     public List<GameObject> AllObjects { get; private set; }
 
-    void Awake() {
+    void Start() {
         if (objects == null) {
             Init();
         }
