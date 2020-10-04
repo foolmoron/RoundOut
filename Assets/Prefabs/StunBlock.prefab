@@ -76,7 +76,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1.5, y: 4}
+  m_Size: {x: 1, y: 2.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5106219555700470610}
   - component: {fileID: 3172042749672944415}
   - component: {fileID: 6557548238770847587}
+  - component: {fileID: -3326240965587610298}
   m_Layer: 0
   m_Name: StunBlock
   m_TagString: Untagged
@@ -108,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5106219555700473004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.62, y: 0.85, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6851814452271903815}
@@ -154,8 +155,21 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.67, y: 1.92}
+  m_Size: {x: 0.43, y: 1.16}
   m_EdgeRadius: 0
+--- !u!114 &-3326240965587610298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5106219555700473004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813e45786718b86429f6767aa517434b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnderY: -8
 --- !u!1 &7895067615520756755
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,9 +194,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7895067615520756755}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0013, z: 0}
-  m_LocalScale: {x: 0.2713901, y: 0.7432481, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.16420572, y: 0.4573403, z: 1}
   m_Children: []
   m_Father: {fileID: 5106219555700470610}
   m_RootOrder: 1

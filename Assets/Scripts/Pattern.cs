@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public class Pattern : MonoBehaviour {
 		
 	void Awake() {
-		// unparent contents and destroy self
-		foreach (Transform child in transform) {
-			if (child.name != "Area") {
-				child.parent = null;
-            }
-        }
+		transform.localScale = new Vector3(
+			Random.value < 0.5f ? 1 : -1,
+			Random.value < 0.5f ? 1 : -1,
+			1
+		);
+		Destroy(transform.Find("Area").gameObject);
+		transform.DetachChildren();
 		Destroy(gameObject);
 	}
 }

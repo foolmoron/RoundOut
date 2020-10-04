@@ -2,9 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System;
 
-public class Navigator : MonoBehaviour {
+public class Navigator : Manager<Navigator> {
 
 	public bool GeneratingLine;
 	[Range(10f, 50f)]
@@ -19,6 +18,8 @@ public class Navigator : MonoBehaviour {
 	public float TrailDecayTime = 1f;
 	[Range(1f, 100f)]
 	public float OffDecayTime = 25f;
+
+	public float DieUnderCameraY = -5.25f;
 
 	SpriteRenderer anim;
 	Rigidbody2D rb;
@@ -52,6 +53,10 @@ public class Navigator : MonoBehaviour {
 		{
 			if (GeneratingLine) {
 				var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition).to2();
+				if (Scorer.Inst.TimeAlive < 1f) {
+					mousePos = mousePos.withX(Mathf.Clamp(mousePos.x, Camera.main.transform.position.x - 0.2f, Camera.main.transform.position.x + 0.2f));
+					mousePos = mousePos.withY(Mathf.Max(mousePos.y, Camera.main.transform.position.y - 3.6f));
+                }
 				var vecToMouse = mousePos - rb.position;
 				rb.velocity = vecToMouse.normalized * Mathf.Min(SpeedToMouse, vecToMouse.magnitude / Time.deltaTime);
 			} else if (stunTime <= 0) {
@@ -98,6 +103,13 @@ public class Navigator : MonoBehaviour {
         {
 			LineRenderer.positionCount = Line.Count;
 			LineRenderer.SetPositions(Line.ToArray());
+        }
+        // die
+        {
+			if (Scroller.Inst.Scrolling && transform.position.y < Camera.main.transform.position.y + DieUnderCameraY) {
+				stunTime = float.PositiveInfinity;
+				Scorer.Inst.GameOver();
+            }
         }
 	}
 
