@@ -21,6 +21,10 @@ public class Scorer : Manager<Scorer> {
 
     public GameObject CaptureTextPrefab;
 
+    public GameObject ComboBar;
+    public TextMeshPro ComboText;
+    float comboScaleOrig;
+
     public TextMeshPro TextTime;
     public TextMeshPro TextScore;
     public TextMeshPro TextBestTime;
@@ -48,6 +52,7 @@ public class Scorer : Manager<Scorer> {
         TextBestTime.text = PlayerPrefs.GetFloat("MaxTime").ToString("0.00s");
         TextBestScore.text = PlayerPrefs.GetFloat("MaxScore").ToString("0");
         TextBestStar.text = PlayerPrefs.GetFloat("MaxStar").ToString("0");
+        comboScaleOrig = ComboBar.transform.localScale.x;
     }
 
     void Update() {
@@ -58,6 +63,12 @@ public class Scorer : Manager<Scorer> {
         // tests
         TextTime.text = TimeAlive.ToString("0.00s");
         TextScore.text = Score.ToString("0");
+        // combo
+        var comboPerc = Mathf.Clamp01(comboTime / (BaseComboTime - ComboMinus * comboLevel));
+        ComboBar.transform.localScale = ComboBar.transform.localScale.withX(comboPerc * comboScaleOrig);
+        ComboText.text = ComboMultiplier.ToString("0x");
+        ComboText.gameObject.SetActive(ComboMultiplier > 1);
+        ComboText.transform.localScale = Vector3.one * (0.01834f * ComboMultiplier + 0.31155f);
     }
 
     void FixedUpdate() {
@@ -80,8 +91,8 @@ public class Scorer : Manager<Scorer> {
     public void OnStarGet(float score, Vector2 position) {
         // add to score
         comboTime = BaseComboTime - ComboMinus * comboLevel;
-        ComboMultiplier = NextFibbonacci();
         var totalScore = score * ComboMultiplier;
+        ComboMultiplier = NextFibbonacci();
         Score += totalScore;
         BestStar = Mathf.Max(BestStar, totalScore);
 
@@ -92,7 +103,7 @@ public class Scorer : Manager<Scorer> {
         StartCoroutine(FlashCaptureText(text, (int)score, ComboMultiplier, (int)totalScore));
     }
 
-    int a = 0, b = 1;
+    int a = 1, b = 1;
     int NextFibbonacci() {
         comboLevel++;
         var next = a + b;
@@ -102,9 +113,9 @@ public class Scorer : Manager<Scorer> {
     }
     int ResetFibbonnacci() {
         comboLevel = 0;
-        a = 0;
+        a = 1;
         b = 1;
-        return a + b;
+        return 1;
     }
 
     IEnumerator FlashCaptureText(GameObject captureText, int initial, int multiplier, int score) {
@@ -166,7 +177,7 @@ public class Scorer : Manager<Scorer> {
         TextEndBestStar.text = PlayerPrefs.GetFloat("MaxStar").ToString("0");
         foreach (var t in EndTexts) {
             t.gameObject.SetActive(true);
-            yield return new WaitForSeconds(Mathf.Lerp(0.1f, 0.6f, Random.value));
+            yield return new WaitForSeconds(Mathf.Lerp(0.1f, 0.45f, Random.value));
         }
 
         canRestart = true;
