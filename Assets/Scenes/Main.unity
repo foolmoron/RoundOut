@@ -1425,8 +1425,8 @@ MonoBehaviour:
   EnableOnScroll:
   - {fileID: 2030401916}
   - {fileID: 1244857310}
-  DrumIntervalBase: 2
-  DrumSpeedFactor: 0.5
+  DrumIntervalBase: 1.8
+  DrumSpeedFactor: 1.1
   DrumSound: {fileID: 8300000, guid: 6515a5e24f0ec4a4db0a7e291298264f, type: 3}
 --- !u!20 &519420031
 Camera:
@@ -1616,6 +1616,17 @@ MonoBehaviour:
   - {fileID: 647282740}
   - {fileID: 40888010}
   - {fileID: 1389672438}
+  CrashSounds:
+  - {fileID: 8300000, guid: 87f81b5b862d6954481cab48ff9e4e8a, type: 3}
+  - {fileID: 8300000, guid: 315927bd53c8520459a49f2a22683e0d, type: 3}
+  - {fileID: 8300000, guid: 87f81b5b862d6954481cab48ff9e4e8a, type: 3}
+  - {fileID: 8300000, guid: a2f1b2db2da7ab544b7bfd21f1279fcc, type: 3}
+  - {fileID: 8300000, guid: 315927bd53c8520459a49f2a22683e0d, type: 3}
+  - {fileID: 8300000, guid: a2f1b2db2da7ab544b7bfd21f1279fcc, type: 3}
+  - {fileID: 8300000, guid: 315927bd53c8520459a49f2a22683e0d, type: 3}
+  - {fileID: 8300000, guid: 87f81b5b862d6954481cab48ff9e4e8a, type: 3}
+  - {fileID: 8300000, guid: a2f1b2db2da7ab544b7bfd21f1279fcc, type: 3}
+  BloopSound: {fileID: 8300000, guid: 87f81b5b862d6954481cab48ff9e4e8a, type: 3}
 --- !u!82 &519420036
 AudioSource:
   m_ObjectHideFlags: 0

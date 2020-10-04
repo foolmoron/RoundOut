@@ -30,7 +30,7 @@ public static class AudioClipExtensions {
         clips.Random().Play(pos, volume, pitch, pan);
     }
 
-    public static void PlayWithPitchRange(this AudioClip audioClip, float pitchRangeX, float pitchRangeY) {
-        Play(audioClip, null, 1, Mathf.Lerp(pitchRangeX, pitchRangeY, Random.value), 0);
+    public static void PlayWithPitchRange(this AudioClip audioClip, float pitchRangeX, float pitchRangeY, float volume = 1.0f) {
+        Play(audioClip, null, volume, Mathf.Lerp(pitchRangeX, pitchRangeY, Random.value), 0);
     }
 }

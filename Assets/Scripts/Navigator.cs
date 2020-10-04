@@ -70,7 +70,7 @@ public class Navigator : Manager<Navigator> {
 		{
 			if (GeneratingLine) {
 				var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition).to2();
-				if (Scorer.Inst.TimeAlive < 1f) {
+				if (Scorer.Inst.TimeAlive < 0.7f) {
 					mousePos = mousePos.withX(Mathf.Clamp(mousePos.x, Camera.main.transform.position.x - 0.2f, Camera.main.transform.position.x + 0.2f));
 					mousePos = mousePos.withY(Mathf.Max(mousePos.y, Camera.main.transform.position.y - 3.6f));
                 }

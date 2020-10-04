@@ -34,8 +34,10 @@ public class Scroller : Manager<Scroller> {
 
 		if (!wasScrolling && Scrolling) {
 			EnableOnScroll.ForEach(go => go.SetActive(true));
+			Scorer.Inst.Crash();
         } else if (wasScrolling && !Scrolling) {
 			EnableOnScroll.ForEach(go => go.SetActive(false));
+			Scorer.Inst.Crash();
 		}
 		
 		wasScrolling = Scrolling;

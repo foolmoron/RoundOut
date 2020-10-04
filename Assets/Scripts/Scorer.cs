@@ -42,6 +42,9 @@ public class Scorer : Manager<Scorer> {
 
     bool canRestart;
 
+    public AudioClip[] CrashSounds;
+    public AudioClip BloopSound;
+
     void Awake() {
         Grid.transform.position = Grid.transform.position.withX(Mathf.Lerp(-1.5f, 1.5f, Random.value));
         Grid.transform.localScale = new Vector3(
@@ -53,6 +56,19 @@ public class Scorer : Manager<Scorer> {
         TextBestScore.text = PlayerPrefs.GetFloat("MaxScore").ToString("0");
         TextBestStar.text = PlayerPrefs.GetFloat("MaxStar").ToString("0");
         comboScaleOrig = ComboBar.transform.localScale.x;
+    }
+
+    public void Crash() {
+        StartCoroutine(DoCrash());
+    }
+
+    IEnumerator DoCrash() {
+        foreach (var s in CrashSounds) {
+            s.PlayWithPitchRange(0.85f, 1.1f, 1f);
+            yield return null;
+            s.PlayWithPitchRange(0.85f, 1.1f, 1f);
+            yield return null;
+        }
     }
 
     void Update() {
@@ -180,6 +196,8 @@ public class Scorer : Manager<Scorer> {
         TextEndBestStar.text = PlayerPrefs.GetFloat("MaxStar").ToString("0");
         foreach (var t in EndTexts) {
             t.gameObject.SetActive(true);
+            BloopSound.PlayWithPitchRange(0.8f, 1.15f, 1.6f);
+            BloopSound.PlayWithPitchRange(0.8f, 1.15f, 1.6f);
             yield return new WaitForSeconds(Mathf.Lerp(0.1f, 0.45f, Random.value));
         }
 
