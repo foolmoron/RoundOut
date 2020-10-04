@@ -1920,6 +1920,7 @@ MonoBehaviour:
   TrailDecayTime: 1.22
   OffDecayTime: 33.4
   DieUnderCameraY: -5.25
+  HitParticlesPrefab: {fileID: 6384341230844209034, guid: 2335cd93519049449b410f61de27c048, type: 3}
 --- !u!50 &738602545
 Rigidbody2D:
   serializedVersion: 4

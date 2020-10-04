@@ -8,7 +8,7 @@ public class Navigator : Manager<Navigator> {
 	public bool GeneratingLine;
 	[Range(10f, 50f)]
 	public float SpeedToMouse = 37f;
-
+	
 	public LineRenderer LineRenderer;
 
     public List<Vector3> Line { get; } = new List<Vector3>(100);
@@ -20,6 +20,8 @@ public class Navigator : Manager<Navigator> {
 	public float OffDecayTime = 25f;
 
 	public float DieUnderCameraY = -5.25f;
+
+	public GameObject HitParticlesPrefab;
 
 	SpriteRenderer anim;
 	Rigidbody2D rb;
@@ -125,7 +127,10 @@ public class Navigator : Manager<Navigator> {
 			GeneratingLine = false;
 			stunTime = stunBlock.StunTime;
 			rb.velocity = Vector2.zero;
-			rb.AddForce(collision.GetContact(0).normal * stunBlock.PushForce, ForceMode2D.Impulse);
+			var hit = collision.GetContact(0);
+			rb.AddForce(hit.normal * stunBlock.PushForce, ForceMode2D.Impulse);
+			// particles
+			var particles = Instantiate(HitParticlesPrefab, hit.point, Quaternion.Euler(0, 0, hit.normal.angleDeg() - 30));
 		}
     }
 
