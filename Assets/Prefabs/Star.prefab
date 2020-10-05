@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7061379701787398474}
   - component: {fileID: 7061379701787398472}
-  - component: {fileID: 7061379701787398475}
-  - component: {fileID: 7061379701787398473}
+  - component: {fileID: 3311833864680069941}
+  - component: {fileID: 3047388828056189998}
   m_Layer: 7
   m_Name: Triangle (1)
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7061379701787398475
+--- !u!114 &3311833864680069941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,11 +93,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7061379701787398477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0a22cabb9a78d449c7f6905148aba7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8422e4f3691dbb84e93b58f8873a2a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DegreesPerSecond: {x: 0, y: 0, z: 0}
---- !u!114 &7061379701787398473
+--- !u!114 &3047388828056189998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,13 +106,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7061379701787398477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae60f02db6a1ee408efebc2cf5276d8, type: 3}
+  m_Script: {fileID: 11500000, guid: df22524514c3c404aa29fea92fc1a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PulseTime: 0.82
+  PulseTime: 0.72
   PulseOffset: 0
-  MinAlpha: 0.2
-  MaxAlpha: 1
+  MinAlpha: 0.202
+  MaxAlpha: 0.802
 --- !u!1 &7061379701974184162
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,8 +225,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7061379702359237453}
   - component: {fileID: 7061379702359237451}
-  - component: {fileID: 7061379702359237450}
-  - component: {fileID: 7061379702359237448}
+  - component: {fileID: 6594719737607808774}
+  - component: {fileID: 1110355934317066875}
   m_Layer: 7
   m_Name: Triangle
   m_TagString: Untagged
@@ -299,7 +299,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7061379702359237450
+--- !u!114 &6594719737607808774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,11 +308,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7061379702359237452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0a22cabb9a78d449c7f6905148aba7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8422e4f3691dbb84e93b58f8873a2a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DegreesPerSecond: {x: 0, y: 0, z: 0}
---- !u!114 &7061379702359237448
+--- !u!114 &1110355934317066875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -321,10 +321,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7061379702359237452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae60f02db6a1ee408efebc2cf5276d8, type: 3}
+  m_Script: {fileID: 11500000, guid: df22524514c3c404aa29fea92fc1a88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PulseTime: 0.56
+  PulseTime: 1.01
   PulseOffset: 0
-  MinAlpha: 0.2
-  MaxAlpha: 1
+  MinAlpha: 0.202
+  MaxAlpha: 0.802

@@ -19,3 +19,4 @@
 .vscode/
 Assets/Demo*
 Assets/SceneDependencyCache*
+Build/

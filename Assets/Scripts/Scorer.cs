@@ -73,7 +73,7 @@ public class Scorer : Manager<Scorer> {
 
     void Update() {
         // restart
-        if (canRestart && Input.GetMouseButtonDown(0)) {
+        if (canRestart && Input.GetMouseButtonUp(0)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         // tests
