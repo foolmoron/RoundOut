@@ -46,7 +46,6 @@ public class Scorer : Manager<Scorer> {
     public AudioClip BloopSound;
 
     void Awake() {
-        Grid.transform.position = Grid.transform.position.withX(Mathf.Lerp(-1.5f, 1.5f, Random.value));
         Grid.transform.localScale = new Vector3(
             Grid.transform.localScale.x * (Random.value < 0.5f ? 1 : -1),
             Grid.transform.localScale.y * (Random.value < 0.5f ? 1 : -1),
